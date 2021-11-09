@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>模型检验方法概要 | TItanimLJA</title><meta name="keywords" content="LTL;软件可靠性方法"><meta name="author" content="Li Junan"><meta name="copyright" content="Li Junan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="《软件可靠性方法》学习记录Ⅱ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型检验方法概要">
+<meta property="og:url" content="http://example.com/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/index.html">
+<meta property="og:site_name" content="TItanimLJA">
+<meta property="og:description" content="《软件可靠性方法》学习记录Ⅱ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg">
+<meta property="article:published_time" content="2021-11-09T11:48:20.000Z">
+<meta property="article:modified_time" content="2021-11-09T12:19:40.342Z">
+<meta property="article:author" content="Li Junan">
+<meta property="article:tag" content="形式化规约">
+<meta property="article:tag" content="LTL">
+<meta property="article:tag" content="软件可靠性方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg"><link rel="shortcut icon" href="/img/earth.png"><link rel="canonical" href="http://example.com/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '模型检验方法概要',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-09 20:19:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/bear.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TItanimLJA</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">模型检验方法概要</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-09T11:48:20.000Z" title="发表于 2021-11-09 19:48:20">2021-11-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-09T12:19:40.342Z" title="更新于 2021-11-09 20:19:40">2021-11-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AF%E4%BB%B6%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%96%B9%E6%B3%95/">软件可靠性方法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="模型检验方法概要"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="模型检验方法概要"><a href="#模型检验方法概要" class="headerlink" title="模型检验方法概要"></a>模型检验方法概要</h1><h2 id="广义Buchi自动机"><a href="#广义Buchi自动机" class="headerlink" title="广义Büchi自动机"></a>广义Büchi自动机</h2><p>广义Büchi自动机与Büchi自动机的区别是其允许有多个接受集合。也就是结构六元组（∑,S,∆,I,L,F）中的F={f1，f2，…,fm}，每个fi都是S的一个子集。一个可接受的运行必须无限次地通过每一个F中的集合。</p>
+<h2 id="广义Buchi自动机转换为简单Buchi自动机"><a href="#广义Buchi自动机转换为简单Buchi自动机" class="headerlink" title="广义Büchi自动机转换为简单Büchi自动机"></a>广义Büchi自动机转换为简单Büchi自动机</h2><p>假设一个广义Büchi自动机有m个可接受集合，则构建m个状态集合S的独立副本，Si=S×{i}(1≤i≤m)，Si的状态记为(s,i)。在构建的Büchi自动机的一个运行中，当访问Si中的状态时，如果出现fi中状态的副本，就跳至Si+1中相应的后继状态。否则跳至Si中相应的后继状态。以增序访问F中所有集合的可接受状态，使得自动机循环经过m个备份。</p>
+<p>我们需要选出无限多次经过从S1到Sm每一个副本的接受状态。因为从一个集合到下一个集合的跳转与某个fi中接受状态的出现相一致，所以就保证了所有接受集合都将出现出现多次。同时如果随意选择Si中的一个元素作为接受集合，这样有可能导致接受一个永久停留在Si而不出现在fi中的运行。因此可以将每个fi和{i}集合做笛卡尔积，这保证了可以经过fi×{i}的一个状态并可到达Si+1中的一个状态。同时为了重新访问fi×{i}需要再次循环遍历其他所有备份。</p>
+<p>我们还要对不同集合中接受状态的出现附加先后次序，例如有状态(s,2)∈S2，其中s∈f2，则跳转到属于S3的某一状态。然后，如果有状态(q,3)∈S3出现，且q∈f1或f2，则继续停留在S3。</p>
+<p>假设定义两个Büchi自动机的交集为一个广义Büchi自动机，对应交集构建为：<br>$$<br>A1∩A2=(∑,S1×S2, ∆,I1×I2,L,{F1×S2,S1×F2})<br>$$<br>转换关系∆定义为(&lt;l,q&gt;,&lt;l’,q’&gt;)∈∆当且仅当(l,l’)∈∆1，且(q,q’)∈∆2。例如如下两个自动机：</p>
+<p>求交集时对状态集合做笛卡尔积S1×S2，摒弃掉状态为flase的状态组&lt;q0,q2&gt;，同时按照上面的方法构建状态组间的转换关系，得到交集的中间状态：</p>
+<p>接下来对这三个状态组按照上面的方法与{i}做笛卡尔积，即{(q0,q3)、(q1,q2)、(q1,q3)}×{0，1}，得到六个状态组；接下来选择一组状态作为起始状态，选择包含原自动机起始状态的一个状态组。这里满足条件的是(q1,q2,0),之后根据上面的转化方法将这个广义Büchi自动机转化为简单Büchi自动机。结果如下：</p>
+<p>而对于前面提到的：<br>$$<br>L(A)∩\overline{\text{L(B)}}=∅<br>$$<br>求交集的情况，表示被建模系统的自动机中的所有状态都可以被接受。在这种受限情况中，自动机A1的所有状态都是接受状态，而A2的状态不受限制，则有：<br>$$<br>A1∩A2=&lt;∑,S1×S2,∆,I1×I2,L,S×F2&gt;<br>$$</p>
+<h2 id="空集的检验"><a href="#空集的检验" class="headerlink" title="空集的检验"></a>空集的检验</h2><p>前面已经提到模型检验的方法是检验两件自动机的交集是否为空，其中一个自动机表示系统，另一个自动机表示规约的补集。所以现在需要一个检验空集的算法，同时当交集为空时需要给出反例路径。令ρ是A的一个可接受运行，则ρ中包含了无限多个F中的状态，又由于S是有限的，因此存在ρ的某个后缀ρ’，使得ρ’的每个状态都出现无限多次，这意味着，ρ’的每个状态都可以由ρ’中的另一个状态到达。因此，ρ’中状态包含于A图中的强连通（通过每个结点一次的回路）组件中，则检验L(A)的非空性等价于在图A中寻找一个从初始状态出发可达并包含接受状态的强连通组件。</p>
+<h2 id="模型检验方法步骤概述"><a href="#模型检验方法步骤概述" class="headerlink" title="模型检验方法步骤概述"></a>模型检验方法步骤概述</h2><ul>
+<li><p>构建表示被建模系统的自动机A</p>
+</li>
+<li><p>构建表示规约补集的自动机                               </p>
+</li>
+<li><p>构建交集自动机C=A </p>
+</li>
+<li><p>应用深度优先算法寻找从C中初始状态出发可达的强连通组件</p>
+</li>
+<li><p>如果没有发现包含接受状态的强连通组件，则模型A满足规约B</p>
+</li>
+<li><p>否则，选择C中可达的强连通组件S，构建从C中某一状态出发到达S中某个接受状态的路径μ1.构建从q到自身的循环。令μ2不包含第一个状态q的循环。则(μ­1)(μ2^w)可称为被A接受但不满足B的反例。</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Li Junan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/">http://example.com/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">TItanimLJA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BD%A2%E5%BC%8F%E5%8C%96%E8%A7%84%E7%BA%A6/">形式化规约</a><a class="post-meta__tags" href="/tags/LTL/">LTL</a><a class="post-meta__tags" href="/tags/%E8%BD%AF%E4%BB%B6%E5%8F%AF%E9%9D%A0%E6%80%A7%E6%96%B9%E6%B3%95/">软件可靠性方法</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/"><img class="prev-cover" src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">2021中科大ctf大赛小记</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/21/SSTI%E5%88%9D%E6%8E%A2/"><img class="next-cover" src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">SSTI初探</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/10/12/LTL/" title="LTL"><img class="cover" src="https://i.loli.net/2021/10/17/IfCly2Xuo4aRFZt.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-12</div><div class="title">LTL</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/bear.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Li Junan</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/TItaniumLJA"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/TItaniumLJA" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:titanium_lja@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">HELLO WORLD!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">模型检验方法概要</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BF%E4%B9%89Buchi%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-number">1.1.</span> <span class="toc-text">广义Büchi自动机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BF%E4%B9%89Buchi%E8%87%AA%E5%8A%A8%E6%9C%BA%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%AE%80%E5%8D%95Buchi%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-number">1.2.</span> <span class="toc-text">广义Büchi自动机转换为简单Büchi自动机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E9%9B%86%E7%9A%84%E6%A3%80%E9%AA%8C"><span class="toc-number">1.3.</span> <span class="toc-text">空集的检验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%AD%A5%E9%AA%A4%E6%A6%82%E8%BF%B0"><span class="toc-number">1.4.</span> <span class="toc-text">模型检验方法步骤概述</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/" title="2021中科大ctf大赛小记"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2021中科大ctf大赛小记"/></a><div class="content"><a class="title" href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/" title="2021中科大ctf大赛小记">2021中科大ctf大赛小记</a><time datetime="2021-11-09T11:48:20.000Z" title="发表于 2021-11-09 19:48:20">2021-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/" title="模型检验方法概要"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模型检验方法概要"/></a><div class="content"><a class="title" href="/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/" title="模型检验方法概要">模型检验方法概要</a><time datetime="2021-11-09T11:48:20.000Z" title="发表于 2021-11-09 19:48:20">2021-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/21/SSTI%E5%88%9D%E6%8E%A2/" title="SSTI初探"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SSTI初探"/></a><div class="content"><a class="title" href="/2021/10/21/SSTI%E5%88%9D%E6%8E%A2/" title="SSTI初探">SSTI初探</a><time datetime="2021-10-21T08:48:20.000Z" title="发表于 2021-10-21 16:48:20">2021-10-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Web/" title="攻防世界-Web"><img src="https://i.loli.net/2021/10/17/2IGnvhV3c76tXN4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="攻防世界-Web"/></a><div class="content"><a class="title" href="/2021/10/17/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Web/" title="攻防世界-Web">攻防世界-Web</a><time datetime="2021-10-17T10:55:26.891Z" title="发表于 2021-10-17 18:55:26">2021-10-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/10/12/LTL/" title="LTL"><img src="https://i.loli.net/2021/10/17/IfCly2Xuo4aRFZt.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LTL"/></a><div class="content"><a class="title" href="/2021/10/12/LTL/" title="LTL">LTL</a><time datetime="2021-10-12T12:22:21.000Z" title="发表于 2021-10-12 20:22:21">2021-10-12</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Li Junan</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
