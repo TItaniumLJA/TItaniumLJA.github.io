@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>git泄露 | TItanimLJA</title><meta name="keywords" content="WEB安全;git"><meta name="author" content="Li Junan"><meta name="copyright" content="Li Junan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="git泄露学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git泄露">
+<meta property="og:url" content="http://example.com/2021/11/23/git%E6%B3%84%E9%9C%B2/index.html">
+<meta property="og:site_name" content="TItanimLJA">
+<meta property="og:description" content="git泄露学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg">
+<meta property="article:published_time" content="2021-11-23T08:48:20.000Z">
+<meta property="article:modified_time" content="2021-11-23T12:02:11.391Z">
+<meta property="article:author" content="Li Junan">
+<meta property="article:tag" content="WEB安全">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg"><link rel="shortcut icon" href="/img/earth.png"><link rel="canonical" href="http://example.com/2021/11/23/git%E6%B3%84%E9%9C%B2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'git泄露',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-23 20:02:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/bear.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">TItanimLJA</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 電影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">git泄露</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-23T08:48:20.000Z" title="发表于 2021-11-23 16:48:20">2021-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-23T12:02:11.391Z" title="更新于 2021-11-23 20:02:11">2021-11-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E5%AE%89%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">网安学习记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="git泄露"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="git泄露漏洞"><a href="#git泄露漏洞" class="headerlink" title="git泄露漏洞"></a>git泄露漏洞</h1><h2 id="git简介"><a href="#git简介" class="headerlink" title="git简介"></a>git简介</h2><p>git是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。当前大量开发人员使用git进行版本控制，对站点自动部署。攻击者可以利用该漏洞下载git文件夹里的所有内容。如果文件夹内有敏感信息比如站点源码、数据库账户密码等，攻击者可能直接控制服务器。如果配置不当，可能会将.git文件夹直接部署到线上环境。这就引起了git泄露漏洞。</p>
+<h2 id="git目录"><a href="#git目录" class="headerlink" title=".git目录"></a>.git目录</h2><ul>
+<li>config - 包含一些配置选项</li>
+<li>description - 仓库的描述信息，主要给gitweb等git托管系统使用</li>
+<li>HEAD - 指定当前分支,映射到ref引用，能够找到下一次commit的前一次哈希值</li>
+<li>hooks - 存放可在某些指令前后触发运行的钩子脚本（hook scripts），默认包含一些脚本样例</li>
+<li>index - 这个文件就是我们前面提到的暂存区（stage），是一个二进制文件</li>
+<li>info - 存放仓库的信息</li>
+<li>objects - 存储所有Git的数据对象,对象的SHA1哈希值的前两位是文件夹名称，后38位作为对象文件名</li>
+<li>refs - 存储各个分支指向的目标提交</li>
+</ul>
+<h2 id="git常用命令"><a href="#git常用命令" class="headerlink" title="git常用命令"></a>git常用命令</h2><ul>
+<li><code>git ls-files -u</code>显示冲突的文件，<code>-s</code>是显示标记为冲突已解决的文件</li>
+<li><code>git diff</code> 对比工作区和stage文件的差异</li>
+<li><code>git diff --cached</code> 对比stage和branch之间的差异</li>
+<li><code>git ls-files --stage</code> 检查保存在stage的文件</li>
+<li><code>git log</code> 显示到HEAD所指向的commit为止的所有commit记录 </li>
+<li><code>git reset HEAD &lt;file&gt;</code>可以拉取最近一次提交到版本库的文件到暂存区，并且该操作不影响工作区</li>
+<li><code>git reset --hard HEAD</code>放弃工作区和index的改动,HEAD指针仍然指向当前的commit</li>
+</ul>
+<h2 id="漏洞利用实例"><a href="#漏洞利用实例" class="headerlink" title="漏洞利用实例"></a>漏洞利用实例</h2><h3 id="CTFhub-Log"><a href="#CTFhub-Log" class="headerlink" title="CTFhub-Log"></a>CTFhub-Log</h3><p>首先利用<strong>dirsearch</strong>工具扫描题目网站</p>
+<blockquote>
+<p>python dirsearch.py -u <a target="_blank" rel="noopener" href="http://challeng-7874a01df5e06f.sandbox.ctfhub.com:10800/">http://challeng-7874a01df5e06f.sandbox.ctfhub.com:10800/</a></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/a67dc2d1322d4b1fae2feed09d3c5162.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVEl0YW5pdW14,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以看出存在git泄露，接下来用git_extract工具来下载源代码到本地，需要注意的是此工具需要在python2环境下运行，没有的小伙伴可以去官网下载安装(可以和python3环境共存，记得修改python.exe以区分两个版本）。</p>
+<blockquote>
+<p>python2 git_extract.py <a target="_blank" rel="noopener" href="http://challenge-af087dea0ea36ad3.sandbox.ctfhub.com:10800/.git/">http://challenge-af087dea0ea36ad3.sandbox.ctfhub.com:10800/.git/</a></p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/c287b7efec404a8d863836a40fbef305.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVEl0YW5pdW14,size_20,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>下载完成，可以在工具根目录下找到如下文件夹：<br><img src="https://img-blog.csdnimg.cn/9151403d9ad24ba39360f58bdaf9abad.png" alt="在这里插入图片描述"><br>在此界面，右键点击<strong>Git Bush Here</strong>。接着输入git log命令，查看所有提交记录：<br><img src="https://img-blog.csdnimg.cn/8d966a38f5c041eea84ba482f73a52d8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAVEl0YW5pdW14,size_15,color_FFFFFF,t_70,g_se,x_16" alt="在这里插入图片描述"><br>可以看到在第二条记录中进行了<strong>add flag</strong>的操作，猜测flag就在里面，继续输入git diff命令来对比文件：</p>
+<blockquote>
+<p>git diff 930fd6274703f77ecbed6fafacfd1bdb0efff42c<br>最后成功得到flag：<br><img src="https://img-blog.csdnimg.cn/61fde57dd8754f309db4248a46b15997.png" alt="在这里插入图片描述"></p>
+</blockquote>
+<h3 id="CTFhub-stash"><a href="#CTFhub-stash" class="headerlink" title="CTFhub-stash"></a>CTFhub-stash</h3><p>stash命令可用于临时保存和回复修改，进入题目，依照上题方法扫描网站目录，发现git漏洞存在，下载源代码到本地，查看文件夹，发现<strong>.git\refs</strong>目录下有一stash文件，用记事本打开该文件：<br><img src="https://img-blog.csdnimg.cn/213a7887dda24d7f943d4aaaa3c51698.png" alt="在这里插入图片描述"></p>
+<p>利用git diff命令，查看提交差异：</p>
+<blockquote>
+<p>git diff 3a7efb60aa102868368856c99ddd1d5c2b6fd8ed</p>
+</blockquote>
+<p>得到flag：</p>
+<p><img src="https://img-blog.csdnimg.cn/e404b8e7b5714a6998e6674fe4a09b8e.png" alt="在这里插入图片描述"><br>当然官方题解的步骤为：</p>
+<blockquote>
+<p>git stash list #显示所有保存的记录列表<br>git stash pop #从列表中弹出来一个文件</p>
+</blockquote>
+<p>但经过尝试并未成功。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Li Junan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/11/23/git%E6%B3%84%E9%9C%B2/">http://example.com/2021/11/23/git%E6%B3%84%E9%9C%B2/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">TItanimLJA</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/WEB%E5%AE%89%E5%85%A8/">WEB安全</a><a class="post-meta__tags" href="/tags/CTF/">CTF</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/17/CTFer%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/"><img class="next-cover" src="https://i.loli.net/2021/10/17/IfCly2Xuo4aRFZt.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CTFer成长之路逆向学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/10/10/BUGKU-Web/" title="BUGKU-Web"><img class="cover" src="https://i.loli.net/2021/10/17/hekfjI8gJDlN3ir.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-10</div><div class="title">BUGKU-Web</div></div></a></div><div><a href="/2021/10/21/SSTI%E5%88%9D%E6%8E%A2/" title="SSTI初探"><img class="cover" src="https://i.loli.net/2021/10/17/2IGnvhV3c76tXN4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-21</div><div class="title">SSTI初探</div></div></a></div><div><a href="/2021/11/17/CTFer%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/" title="CTFer成长之路逆向学习"><img class="cover" src="https://i.loli.net/2021/10/17/IfCly2Xuo4aRFZt.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-17</div><div class="title">CTFer成长之路逆向学习</div></div></a></div><div><a href="/2021/11/13/ctfhub/" title="ctfhub-Web题目笔记"><img class="cover" src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-13</div><div class="title">ctfhub-Web题目笔记</div></div></a></div><div><a href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/" title="2021中科大ctf大赛小记"><img class="cover" src="https://i.loli.net/2021/10/17/2IGnvhV3c76tXN4.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-09</div><div class="title">2021中科大ctf大赛小记</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/bear.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Li Junan</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/TItaniumLJA"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/TItaniumLJA" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:titanium_lja@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">HELLO WORLD!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git%E6%B3%84%E9%9C%B2%E6%BC%8F%E6%B4%9E"><span class="toc-number">1.</span> <span class="toc-text">git泄露漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">git简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E7%9B%AE%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">.git目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">git常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">漏洞利用实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CTFhub-Log"><span class="toc-number">1.4.1.</span> <span class="toc-text">CTFhub-Log</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CTFhub-stash"><span class="toc-number">1.4.2.</span> <span class="toc-text">CTFhub-stash</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/23/git%E6%B3%84%E9%9C%B2/" title="git泄露"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git泄露"/></a><div class="content"><a class="title" href="/2021/11/23/git%E6%B3%84%E9%9C%B2/" title="git泄露">git泄露</a><time datetime="2021-11-23T08:48:20.000Z" title="发表于 2021-11-23 16:48:20">2021-11-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/17/CTFer%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/" title="CTFer成长之路逆向学习"><img src="https://i.loli.net/2021/10/17/IfCly2Xuo4aRFZt.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CTFer成长之路逆向学习"/></a><div class="content"><a class="title" href="/2021/11/17/CTFer%E6%88%90%E9%95%BF%E4%B9%8B%E8%B7%AF%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0/" title="CTFer成长之路逆向学习">CTFer成长之路逆向学习</a><time datetime="2021-11-17T08:48:20.000Z" title="发表于 2021-11-17 16:48:20">2021-11-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/13/ctfhub/" title="ctfhub-Web题目笔记"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ctfhub-Web题目笔记"/></a><div class="content"><a class="title" href="/2021/11/13/ctfhub/" title="ctfhub-Web题目笔记">ctfhub-Web题目笔记</a><time datetime="2021-11-13T06:48:20.000Z" title="发表于 2021-11-13 14:48:20">2021-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/" title="2021中科大ctf大赛小记"><img src="https://i.loli.net/2021/10/17/2IGnvhV3c76tXN4.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2021中科大ctf大赛小记"/></a><div class="content"><a class="title" href="/2021/11/09/%E4%B8%AD%E7%A7%91%E5%A4%A72021%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E5%A4%A7%E8%B5%9B%E5%B0%8F%E8%AE%B0/" title="2021中科大ctf大赛小记">2021中科大ctf大赛小记</a><time datetime="2021-11-09T11:48:20.000Z" title="发表于 2021-11-09 19:48:20">2021-11-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/" title="模型检验方法概要"><img src="https://i.loli.net/2021/10/17/4IHzyYhuD6Kj8mT.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="模型检验方法概要"/></a><div class="content"><a class="title" href="/2021/11/09/%E6%A8%A1%E5%9E%8B%E6%A3%80%E9%AA%8C%E6%96%B9%E6%B3%95%E6%A6%82%E8%A6%81/" title="模型检验方法概要">模型检验方法概要</a><time datetime="2021-11-09T11:48:20.000Z" title="发表于 2021-11-09 19:48:20">2021-11-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Li Junan</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
